@@ -7,11 +7,81 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <input class="color" type="color" />
-    <div class="show_color"><p class="click">Click me</p></div>
-    <p class="show_hex">HEX:</p>
-    <p class="show_rgb">RGB:</p>
-    <p class="show_hsl">HSL:</p>
+    <main class="grid_container">
+      <setion class="grid_item">
+        <form class="radio_wrapper">
+          <input type="radio" name="harmony" value="analogous" class="harmony" id="analogous" checked />
+          <label for="analogous">Analogous</label><br /><br />
+
+          <input type="radio" name="harmony" value="monochromatic" class="harmony" id="monochromatic" />
+          <label for="monochromatic">Monochromatic</label><br /><br />
+
+          <input type="radio" name="harmony" value="triad" class="harmony" id="triad" />
+          <label for="triad">Triad</label><br /><br />
+
+          <input type="radio" name="harmony" value="complementary" class="harmony" id="complementary" />
+          <label for="complementary">Complementary</label><br /><br />
+
+          <input type="radio" name="harmony" value="compound" class="harmony" id="compound" />
+          <label for="compound">Compound</label><br /><br />
+
+          <input type="radio" name="harmony" value="shades" class="harmony" id="shades" />
+          <label for="shades">Shades</label><br />
+        </form>
+        <input type="color" class="color" />
+      </setion>
+      <setion class="grid_item">
+        <article class="item_wrapper">
+          <div class="color_box c1" data-color="c1ana"></div>
+          <div class="color_codes">
+            <p class="hex_code_c1">HEX:</p>
+            <p class="rgb_code_c1">RGB:</p>
+            <p class="hsl_code_c1">HSL:</p>
+          </div>
+        </article>
+      </setion>
+      <setion class="grid_item">
+        <article class="item_wrapper">
+          <div class="color_box c2" data-color="c2ana"></div>
+          <div class="color_codes">
+            <p class="hex_code_c2">HEX:</p>
+            <p class="rgb_code_c2">RGB:</p>
+            <p class="hsl_code_c2">HSL:</p>
+          </div>
+        </article>
+      </setion>
+      <setion class="grid_item">
+        <article class="item_wrapper">
+          <div class="color_box click c3" data-color="c3ana"><p class="clicky">Click to change color</p></div>
+          <div class="color_codes">
+            <p class="hex_code_c3">HEX:</p>
+            <p class="rgb_code_c3">RGB:</p>
+            <p class="hsl_code_c3">HSL:</p>
+          </div>
+        </article>
+      </setion>
+      <setion class="grid_item">
+        <article class="item_wrapper">
+          <div class="color_box c4" data-color="c4ana"></div>
+          <div class="color_codes">
+            <p class="hex_code_c4">HEX:</p>
+            <p class="rgb_code_c4">RGB:</p>
+            <p class="hsl_code_c4">HSL:</p>
+          </div>
+        </article>
+      </setion>
+      <setion class="grid_item">
+        <article class="item_wrapper">
+          <div class="color_box c5" data-color="c5ana"></div>
+          <div class="color_codes">
+            <p class="hex_code_c5">HEX:</p>
+            <p class="rgb_code_c5">RGB:</p>
+            <p class="hsl_code_c5">HSL:</p>
+          </div>
+        </article>
+      </setion>
+    </main>
+
     <script src="script.js"></script>
   </body>
 </html>
