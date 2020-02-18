@@ -114,5 +114,5 @@ function showHsl(h, s, l) {
   const hslParagraph = document.querySelector(".show_hsl");
   hslParagraph.textContent = "";
   //Write the hsl code in HTML
-  hslParagraph.textContent += `HSL ${h}%, ${s}%, ${l}%`;
+  hslParagraph.textContent += `HSL ${h}, ${s}%, ${l}%`;
 }
