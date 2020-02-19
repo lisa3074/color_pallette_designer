@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+:root {
+  --delay: 0.1s;
+}
+
 html {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
@@ -16,7 +20,6 @@ html {
   height: auto;
   padding: 2rem;
 }
-
 .grid_item {
   width: 100%;
   height: 300px;
@@ -36,18 +39,15 @@ html {
   --lum: 0%;
   --sat: 0%;
 }
-
 .color_codes {
   width: 100%;
   height: 50%;
   padding-top: 0.5rem;
 }
-
 .color_codes p {
   padding-top: 0.5rem;
   font-weight: 600;
 }
-
 .color {
   position: absolute;
   left: -10000px;
@@ -56,7 +56,6 @@ html {
   height: 1px;
   overflow: hidden;
 }
-
 .radio_wrapper {
   padding: 0 1rem 0 0;
 }
@@ -64,11 +63,9 @@ label {
   padding-left: 0.5rem;
   font-size: 1.2rem;
 }
-
 input {
   margin-top: 0.7rem;
 }
-
 .c3 {
   display: flex;
   align-items: center;
@@ -193,4 +190,45 @@ input {
 
 [data-color="c5sha"] {
   background-color: hsl(var(--hue), 50%, 80%);
+}
+
+.cool_wrapper {
+  width: 100%;
+  display: flex;
+}
+
+#cooltext {
+  /*  margin: 0 auto; */
+  padding-top: 3vh;
+  padding-left: 3.5rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+span {
+  transform: translateY(100vh);
+  display: inline-block;
+}
+
+.fade_in {
+  animation-name: fade_in_kf;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.17, 0.67, 1, 0.29);
+  animation-fill-mode: forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes fade_in_kf {
+  0% {
+    opacity: 0;
+    transform: translateY(-2vh);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(1vh);
+  }
+  100% {
+    transform: translateY(0vh);
+  }
 }

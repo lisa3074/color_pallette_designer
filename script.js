@@ -2,6 +2,7 @@
 window.addEventListener("DOMContentLoaded", globalVariables);
 
 const HTML = {};
+const TEXT = {};
 
 //-------------------- GLOBAL VARIABLES ---------------------//
 
@@ -47,6 +48,7 @@ function delegation() {
   showHexCode(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); //Show HEX values in p tag
   const currHsl = preCalcHsl(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); // HSL --- Call to calculate current HSL value for colors, store return object in variable
   showHslCode(currHsl.hsl1, currHsl.hsl2, currHsl.hsl3, currHsl.hsl4, currHsl.hsl5); //Show HSL values in p tag
+  textVariables();
 }
 
 //-------------------- MODEL / CALCUATING FUNCTIONS ---------------------//
@@ -321,4 +323,67 @@ function calcHslFromHex(H) {
   l = parseInt(l, 10);
   s = parseInt(s, 10);
   return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+//
+//
+//
+//
+//
+//------------------- TEXT -------------------//
+
+//TEXT GLOBAL VARIABLES
+function textVariables() {
+  TEXT.coolText = document.querySelector("#cooltext");
+  TEXT.characters = [];
+  textInit();
+}
+
+//TEXT CONTROLLER
+function textInit() {
+  const text = getHtmlText();
+  removeHtmlText();
+  const charArray = createArray(text);
+  createSpan();
+  setAnimation();
+}
+
+//TEXT MODEL
+function getHtmlText() {
+  const text = TEXT.coolText.textContent;
+  return text;
+}
+function removeHtmlText() {
+  TEXT.coolText.textContent = "";
+}
+function createArray(text) {
+  text.split("");
+  const char = Array.from(text);
+  char.forEach(entry => {
+    TEXT.characters.push(entry);
+  });
+  return TEXT.characters;
+}
+
+//TEXT DISPLAY
+function createSpan() {
+  TEXT.characters.forEach(letter => {
+    const spans = document.createElement("span");
+    spans.textContent = letter;
+    TEXT.coolText.appendChild(spans);
+  });
+}
+function setAnimation() {
+  const fade = document.querySelector("span");
+  let counter = 0;
+  document.querySelectorAll("span").forEach(e => {
+    e.style.setProperty("--delay", counter + "0ms");
+    e.classList.add("fade_in");
+    counter++;
+  });
+  setAnimation = setNoAnimation;
+}
+function setNoAnimation() {
+  console.log("ani slut");
+  TEXT.coolText.textContent = "Click the box in the middle to change color";
 }
