@@ -1,9 +1,9 @@
 "use strict";
-window.addEventListener("DOMContentLoaded", globalVars);
+window.addEventListener("DOMContentLoaded", globalVariables);
 
 const HTML = {};
 
-function globalVars() {
+function globalVariables() {
   HTML.c1 = document.querySelector(".c1");
   HTML.c2 = document.querySelector(".c2");
   HTML.c3 = document.querySelector(".c3");
@@ -11,12 +11,11 @@ function globalVars() {
   HTML.c5 = document.querySelector(".c5");
   HTML.colorBox = document.querySelectorAll(".color_box");
   HTML.colorPicker = document.querySelector(".color");
-  clickAble();
+  init();
   delegation();
 }
 
-function clickAble() {
-  const clickText = document.querySelector(".click");
+function init() {
   document.querySelector(".click").addEventListener("click", function() {
     HTML.colorPicker.focus();
     document.querySelector(".clicky").classList.add("hide");
@@ -31,14 +30,14 @@ function delegation() {
 
   //Calls splitHex to devide hex code into r, g and b, stores return in a variable
   const rgb = splitHex(hexValue);
-  //Use of object rgb.r + rgb.g + rgb.b (from variable above -rgb and the object name -r)
+  //Use of object rgb.r + rgb.g + rgb.b (from "rgb" from the cosnt above and "r" as the object name)
 
-  //Call function, store return in object and variable  //Use of object RGB.r + RGB.g + RGB.b
+  //Call function, store return in object and variable. Use of object RGB.r + RGB.g + RGB.b
   const RGB = calcRGB(rgb.r, rgb.g, rgb.b);
   //Show rgb-code in p tag
   showRGBCode();
 
-  //call function, store return in object and variable  //Use of object hsl.h + hsl.l + hsl.s
+  //call function, store return in object and variable. Use of object hsl.h + hsl.l + hsl.s
   const hsl = calcHSL(RGB.r, RGB.g, RGB.b);
   //Show colors
   showColor(hsl.h);
