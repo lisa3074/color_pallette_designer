@@ -3,6 +3,8 @@ window.addEventListener("DOMContentLoaded", globalVariables);
 
 const HTML = {};
 
+//-------------------- GLOBAL VARIABLES ---------------------//
+
 function globalVariables() {
   console.log("globalVariables");
   HTML.c1 = document.querySelector(".c1");
@@ -16,6 +18,8 @@ function globalVariables() {
   delegation();
 }
 
+//-------------------- CONTROLLER FUNCTIONS ---------------------//
+
 function init() {
   console.log("init");
   document.querySelector(".click").addEventListener("click", function() {
@@ -23,10 +27,9 @@ function init() {
     document.querySelector(".clicky").classList.add("hide");
     HTML.colorPicker.click();
   });
-  document.querySelector(".color").addEventListener("input", delegation);
+  document.querySelector(".color").addEventListener("input", delegation); //Listen for new input -"live" color change
+  document.querySelector("form").addEventListener("change", getUserInput); //Listen for change in harmony
 }
-
-//-------------------- CONTROLLER FUNCTION ---------------------//
 
 //Function that only calls and recieves
 function delegation() {
@@ -44,7 +47,6 @@ function delegation() {
   showHexCode(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); //Show HEX values in p tag
   const currHsl = preCalcHsl(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); // HSL --- Call to calculate current HSL value for colors, store return object in variable
   showHslCode(currHsl.hsl1, currHsl.hsl2, currHsl.hsl3, currHsl.hsl4, currHsl.hsl5); //Show HSL values in p tag
-  document.querySelector("form").addEventListener("change", getUserInput); //Listen for change in input ("live" color change)
 }
 
 //-------------------- MODEL / CALCUATING FUNCTIONS ---------------------//
