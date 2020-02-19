@@ -4,6 +4,7 @@ window.addEventListener("DOMContentLoaded", globalVariables);
 const HTML = {};
 
 function globalVariables() {
+  console.log("globalVariables");
   HTML.c1 = document.querySelector(".c1");
   HTML.c2 = document.querySelector(".c2");
   HTML.c3 = document.querySelector(".c3");
@@ -16,6 +17,7 @@ function globalVariables() {
 }
 
 function init() {
+  console.log("init");
   document.querySelector(".click").addEventListener("click", function() {
     HTML.colorPicker.focus();
     document.querySelector(".clicky").classList.add("hide");
@@ -24,78 +26,145 @@ function init() {
   document.querySelector(".color").addEventListener("input", delegation);
 }
 
+//-------------------- CONTROLLER FUNCTION ---------------------//
+
+//Function that only calls and recieves
 function delegation() {
-  //Call function to get current hex code and store in a variable
-  const hexValue = getHexCode();
+  console.log("delegation");
+  let hexValue = getHexCode(); //Call function to get current hex code and store in a variable
+  const seperateHex = splitHex(hexValue); //Calls splitHex to devide hex code into r, g and b, stores return in a variable. Use of object rgb.r + rgb.g + rgb.b (from "rgb" from the cosnt above and "r" as the object name)
+  const rgb = calcRgbValues(seperateHex.r, seperateHex.g, seperateHex.b); //Call function, store return in object and variable. Use of object RGB.r + RGB.g + RGB.b
+  const hsl = calcHslFromRgb(rgb.r, rgb.g, rgb.b); //call function, store return in object and variable. Use of object hsl.h + hsl.l + hsl.s
+  showColor(hsl.h, hsl.s, hsl.l); //Show colors in hsl so we are able to use css variables
 
-  //Calls splitHex to devide hex code into r, g and b, stores return in a variable
-  const rgb = splitHex(hexValue);
-  //Use of object rgb.r + rgb.g + rgb.b (from "rgb" from the cosnt above and "r" as the object name)
-
-  //Call function, store return in object and variable. Use of object RGB.r + RGB.g + RGB.b
-  const RGB = calcRGB(rgb.r, rgb.g, rgb.b);
-  //Show rgb-code in p tag
-  showRGBCode();
-
-  //call function, store return in object and variable. Use of object hsl.h + hsl.l + hsl.s
-  const hsl = calcHSL(RGB.r, RGB.g, RGB.b);
-  //Show colors
-  showColor(hsl.h);
-
-  document.querySelector("form").addEventListener("change", userInput);
+  //FIND AND SHOW CURRENT COLOR VALUES IN REAL TIME
+  const currRgb = getCurrRgb(setColor); // RGB --- Call to calculate current RGB value for colors, store return object in variable
+  showRgbCode(currRgb.rgb1, currRgb.rgb2, currRgb.rgb3, currRgb.rgb4, currRgb.rgb5); //Show RGB values in p tag
+  const currHex = preCalcHex(currRgb.rgb1, currRgb.rgb2, currRgb.rgb3, currRgb.rgb4, currRgb.rgb5); // HEX --- Call to calculate current HEX code for colors, store return object in variable
+  showHexCode(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); //Show HEX values in p tag
+  const currHsl = preCalcHsl(currHex.hex1, currHex.hex2, currHex.hex3, currHex.hex4, currHex.hex5); // HSL --- Call to calculate current HSL value for colors, store return object in variable
+  showHslCode(currHsl.hsl1, currHsl.hsl2, currHsl.hsl3, currHsl.hsl4, currHsl.hsl5); //Show HSL values in p tag
+  document.querySelector("form").addEventListener("change", getUserInput); //Listen for change in input ("live" color change)
 }
 
+//-------------------- MODEL / CALCUATING FUNCTIONS ---------------------//
+
+//Returns current hex code
 function getHexCode() {
   console.log("getHexCode");
-  //get hex code from color picker
+  //get hex code from color picker and return value
   const hexColor = HTML.colorPicker.value;
   return hexColor;
 }
 
-function userInput() {
+//Adds the right extension in dataset to get the right harmony
+function getUserInput() {
   console.log("userInput");
-  let o;
+  let e;
   if (document.querySelector("#analogous").checked) {
     console.log("Analogous");
-    //extension in dataset to get the right hsl value
-    let o = "ana";
-    color(o);
+    let e = "ana";
+    setColor(e);
   } else if (document.querySelector("#monochromatic").checked) {
     console.log("Monochromatic");
-    let o = "mono";
-    color(o);
+    let e = "mono";
+    setColor(e);
   } else if (document.querySelector("#triad").checked) {
     console.log("Triad");
-    let o = "tri";
-    color(o);
+    let e = "tri";
+    setColor(e);
   } else if (document.querySelector("#complementary").checked) {
     console.log("Complementary");
-    let o = "compl";
-    color(o);
+    let e = "compl";
+    setColor(e);
   } else if (document.querySelector("#compound").checked) {
     console.log("Compound");
-    let o = "compo";
-    color(o);
+    let e = "compo";
+    setColor(e);
   } else if (document.querySelector("#shades").checked) {
     console.log("Shades");
-    let o = "sha";
-    color(o);
+    let e = "sha";
+    setColor(e);
   }
-  showRGBCode();
+  delegation();
 }
 
-function color(o) {
-  //Change color classes depending on the harmony chosen
-  HTML.c1.dataset.color = "c1" + o;
-  HTML.c2.dataset.color = "c2" + o;
-  HTML.c3.dataset.color = "c3" + o;
-  HTML.c4.dataset.color = "c4" + o;
-  HTML.c5.dataset.color = "c5" + o;
+//Change color dataset depending on the harmony chosen
+function setColor(e) {
+  console.log("setColor");
+  HTML.c1.dataset.color = "c1" + e;
+  HTML.c2.dataset.color = "c2" + e;
+  HTML.c3.dataset.color = "c3" + e;
+  HTML.c4.dataset.color = "c4" + e;
+  HTML.c5.dataset.color = "c5" + e;
 }
 
-function showColor(h) {
+//Find the two characters of r, g and b //Make into object for return of multiple values
+function splitHex(hexValue) {
+  console.log("splitHex");
+  let r = hexValue.substring(1, 3);
+  let g = hexValue.substring(3, 5);
+  let b = hexValue.substring(5, 6 + 1);
+  const rgb = { r, g, b };
+  return rgb;
+}
+
+//Parses the hex strings into integer numbers from the hexadecimal numerical system to use the for rgb values //Make into object for return of multiple values
+function calcRgbValues(r, g, b) {
+  console.log("calcRGB");
+  r = parseInt(r, 16);
+  g = parseInt(g, 16);
+  b = parseInt(b, 16);
+  const RGB = { r, g, b };
+  return RGB;
+}
+
+//Gets the current RGB value from the console //Make into object for return of multiple values
+function getCurrRgb() {
+  console.log("calcCurrRgb");
+  const currRbgC1 = getComputedStyle(HTML.c1);
+  const currRbgC2 = getComputedStyle(HTML.c2);
+  const currRbgC3 = getComputedStyle(HTML.c3);
+  const currRbgC4 = getComputedStyle(HTML.c4);
+  const currRbgC5 = getComputedStyle(HTML.c5);
+  const rgb1 = currRbgC1.backgroundColor;
+  const rgb2 = currRbgC2.backgroundColor;
+  const rgb3 = currRbgC3.backgroundColor;
+  const rgb4 = currRbgC4.backgroundColor;
+  const rgb5 = currRbgC5.backgroundColor;
+  const currRbg = { rgb1, rgb2, rgb3, rgb4, rgb5 };
+  return currRbg;
+}
+
+//Calls a calculation function to convert RGB to Hex (one at a time), gets multiple values in return and makes them into an object for return to delegation()
+function preCalcHex(rgb1, rgb2, rgb3, rgb4, rgb5) {
+  console.log("preCalcHex");
+  const hex1 = calcHexFromRgb(rgb1);
+  const hex2 = calcHexFromRgb(rgb2);
+  const hex3 = calcHexFromRgb(rgb3);
+  const hex4 = calcHexFromRgb(rgb4);
+  const hex5 = calcHexFromRgb(rgb5);
+  const currHex = { hex1, hex2, hex3, hex4, hex5 };
+  return currHex;
+}
+
+//Calls a calculation function to convert HEX to HSL (one at a time), gets multiple values in return and makes them into an object for return to delegation()
+function preCalcHsl(hex1, hex2, hex3, hex4, hex5) {
+  console.log("preCalcHsl");
+  const hsl1 = calcHslFromHex(hex1);
+  const hsl2 = calcHslFromHex(hex2);
+  const hsl3 = calcHslFromHex(hex3);
+  const hsl4 = calcHslFromHex(hex4);
+  const hsl5 = calcHslFromHex(hex5);
+  const currHsl = { hsl1, hsl2, hsl3, hsl4, hsl5 };
+  return currHsl;
+}
+
+//--------------- DISPLAY FUNCTIONS -------------------//
+
+//Set the hue to current hue
+function showColor(h, s, l) {
   console.log("showColor");
-  //Set the hue to current hue
   HTML.c1.style.setProperty("--hue", h);
   HTML.c2.style.setProperty("--hue", h);
   HTML.c3.style.setProperty("--hue", h);
@@ -103,31 +172,40 @@ function showColor(h) {
   HTML.c5.style.setProperty("--hue", h);
 }
 
-function splitHex(hexValue) {
-  console.log("splitHex");
-  //Find the two characters of r, g and b
-  let r = hexValue.substring(1, 3);
-  let g = hexValue.substring(3, 5);
-  let b = hexValue.substring(5, 6 + 1);
-  //Make into object for return of multiple values
-  const rgb = { r, g, b };
-  //return object to delegation
-  return rgb;
+//Shows HEX color values in p tag for all colorboxes
+function showHexCode(hex1, hex2, hex3, hex4, hex5) {
+  console.log("showAllHexCode");
+  document.querySelector(".hex_code_c1").textContent = `HEX: ${hex1}`;
+  document.querySelector(".hex_code_c2").textContent = `HEX: ${hex2}`;
+  document.querySelector(".hex_code_c3").textContent = `HEX: ${hex3}`;
+  document.querySelector(".hex_code_c4").textContent = `HEX: ${hex4}`;
+  document.querySelector(".hex_code_c5").textContent = `HEX: ${hex5}`;
 }
 
-function calcRGB(r, g, b) {
-  console.log("calcRGB");
-  //Parse the strings into integer numbers from the hexadecimal numerical system
-  r = parseInt(r, 16);
-  g = parseInt(g, 16);
-  b = parseInt(b, 16);
-  //Make into object for return of multiple values
-  const RGB = { r, g, b };
-  //return object to delegation
-  return RGB;
+//Shows RGB color values in p tag for all colorboxes
+function showRgbCode(bg1, bg2, bg3, bg4, bg5) {
+  console.log("showRGBCode");
+  document.querySelector(".rgb_code_c1").textContent = `RGB: ${bg1}`;
+  document.querySelector(".rgb_code_c2").textContent = `RGB: ${bg2}`;
+  document.querySelector(".rgb_code_c3").textContent = `RGB: ${bg3}`;
+  document.querySelector(".rgb_code_c4").textContent = `RGB: ${bg4}`;
+  document.querySelector(".rgb_code_c5").textContent = `RGB: ${bg5}`;
 }
+
+//Shows HSL color values in p tag for all colorboxes
+function showHslCode(hsl1, hsl2, hsl3, hsl4, hsl5) {
+  console.log("showHslCode");
+  document.querySelector(".hsl_code_c1").textContent = `HSL: ${hsl1}`;
+  document.querySelector(".hsl_code_c2").textContent = `HSL: ${hsl2}`;
+  document.querySelector(".hsl_code_c3").textContent = `HSL: ${hsl3}`;
+  document.querySelector(".hsl_code_c4").textContent = `HSL: ${hsl4}`;
+  document.querySelector(".hsl_code_c5").textContent = `HSL: ${hsl5}`;
+}
+
+//------------------ BLACK BOXES (CALCULATIONS) -------------------//
+
 //BLACK BOX FROM ASSIGNMENT
-function calcHSL(r, g, b) {
+function calcHslFromRgb(r, g, b) {
   console.log("calcHSL");
   r /= 255;
   g /= 255;
@@ -174,47 +252,9 @@ function calcHSL(r, g, b) {
   return hsl;
 }
 
-function showRGBCode() {
-  console.log("showRGBCode");
-  //Show color value
-  const style1 = getComputedStyle(HTML.c1);
-  const bg1 = style1.backgroundColor;
-  document.querySelector(".rgb_code_c1").textContent = `RGB: ${bg1}`;
-
-  const style2 = getComputedStyle(HTML.c2);
-  const bg2 = style2.backgroundColor;
-  document.querySelector(".rgb_code_c2").textContent = `RGB: ${bg2}`;
-
-  const style3 = getComputedStyle(HTML.c3);
-  const bg3 = style3.backgroundColor;
-  document.querySelector(".rgb_code_c3").textContent = `RGB: ${bg3}`;
-
-  const style4 = getComputedStyle(HTML.c4);
-  const bg4 = style4.backgroundColor;
-  document.querySelector(".rgb_code_c4").textContent = `RGB: ${bg4}`;
-
-  const style5 = getComputedStyle(HTML.c5);
-  const bg5 = style5.backgroundColor;
-  document.querySelector(".rgb_code_c5").textContent = `RGB: ${bg5}`;
-  showAllHexCode(bg1, bg2, bg3, bg4, bg5);
-}
-function showAllHexCode(bg1, bg2, bg3, bg4, bg5, hexValue) {
-  document.querySelector(".hex_code_c3").textContent = `HEX: ${hexValue}`;
-  const hex1 = calcHex(bg1);
-  const hex2 = calcHex(bg2);
-  const hex3 = calcHex(bg3);
-  const hex4 = calcHex(bg4);
-  const hex5 = calcHex(bg5);
-  document.querySelector(".hex_code_c1").textContent = `HEX: ${hex1}`;
-  document.querySelector(".hex_code_c2").textContent = `HEX: ${hex2}`;
-  document.querySelector(".hex_code_c3").textContent = `HEX: ${hex3}`;
-  document.querySelector(".hex_code_c4").textContent = `HEX: ${hex4}`;
-  document.querySelector(".hex_code_c5").textContent = `HEX: ${hex5}`;
-  showHslCode(hex1, hex2, hex3, hex4, hex5);
-}
-
 //BLACK BOX CALC FROM: https://css-tricks.com/converting-color-spaces-in-javascript/
-function calcHex(rgb) {
+function calcHexFromRgb(rgb) {
+  console.log("calcHexFromRgb");
   // Choose correct separator
   let sep = rgb.indexOf(",") > -1 ? "," : " ";
   // Turn "rgb(r,g,b)" into [r,g,b]
@@ -234,21 +274,9 @@ function calcHex(rgb) {
   return "#" + r + g + b;
 }
 
-function showHslCode(hex1, hex2, hex3, hex4, hex5) {
-  console.log("showHslCode");
-  const hsl1 = calcHsl(hex1);
-  const hsl2 = calcHsl(hex2);
-  const hsl3 = calcHsl(hex3);
-  const hsl4 = calcHsl(hex4);
-  const hsl5 = calcHsl(hex5);
-  document.querySelector(".hsl_code_c1").textContent = `HSL: ${hsl1}`;
-  document.querySelector(".hsl_code_c2").textContent = `HSL: ${hsl2}`;
-  document.querySelector(".hsl_code_c3").textContent = `HSL: ${hsl3}`;
-  document.querySelector(".hsl_code_c4").textContent = `HSL: ${hsl4}`;
-  document.querySelector(".hsl_code_c5").textContent = `HSL: ${hsl5}`;
-}
 //BLACK BOX CALC FROM: https://css-tricks.com/converting-color-spaces-in-javascript/
-function calcHsl(H) {
+function calcHslFromHex(H) {
+  console.log("calcHslFromHex");
   // Convert hex to RGB first
   let r = 0,
     g = 0,
