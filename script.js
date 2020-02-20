@@ -2,7 +2,6 @@
 window.addEventListener("DOMContentLoaded", globalVariables);
 
 const HTML = {};
-const TEXT = {};
 
 //-------------------- GLOBAL VARIABLES ---------------------//
 
@@ -334,8 +333,8 @@ function calcHslFromHex(H) {
 
 //TEXT GLOBAL VARIABLES
 function textVariables() {
-  TEXT.coolText = document.querySelector("#cooltext");
-  TEXT.characters = [];
+  HTML.coolText = document.querySelector("#cooltext");
+  HTML.characters = [];
   textInit();
 }
 
@@ -350,27 +349,27 @@ function textInit() {
 
 //TEXT MODEL
 function getHtmlText() {
-  const text = TEXT.coolText.textContent;
+  const text = HTML.coolText.textContent;
   return text;
 }
 function removeHtmlText() {
-  TEXT.coolText.textContent = "";
+  HTML.coolText.textContent = "";
 }
 function createArray(text) {
   text.split("");
   const char = Array.from(text);
   char.forEach(entry => {
-    TEXT.characters.push(entry);
+    HTML.characters.push(entry);
   });
-  return TEXT.characters;
+  return HTML.characters;
 }
 
 //TEXT DISPLAY
 function createSpan() {
-  TEXT.characters.forEach(letter => {
+  HTML.characters.forEach(letter => {
     const spans = document.createElement("span");
     spans.textContent = letter;
-    TEXT.coolText.appendChild(spans);
+    HTML.coolText.appendChild(spans);
   });
 }
 function setAnimation() {
@@ -385,5 +384,5 @@ function setAnimation() {
 }
 function setNoAnimation() {
   console.log("ani slut");
-  TEXT.coolText.textContent = "Click the box in the middle to change color";
+  HTML.coolText.textContent = "Click the box in the middle to change color";
 }
