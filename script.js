@@ -39,6 +39,7 @@ function delegation() {
   const rgb = calcRgbValues(seperateHex.r, seperateHex.g, seperateHex.b); //Call function, store return in object and variable. Use of object RGB.r + RGB.g + RGB.b
   const hsl = calcHslFromRgb(rgb.r, rgb.g, rgb.b); //call function, store return in object and variable. Use of object hsl.h + hsl.l + hsl.s
   showColor(hsl.h, hsl.s, hsl.l); //Show colors in hsl so we are able to use css variables
+  console.log(hsl.h, hsl.s, hsl.l);
 
   //FIND AND SHOW CURRENT COLOR VALUES IN REAL TIME
   const currRgb = getCurrRgb(setColor); // RGB --- Call to calculate current RGB value for colors, store return object in variable
@@ -173,6 +174,18 @@ function showColor(h, s, l) {
   HTML.c3.style.setProperty("--hue", h);
   HTML.c4.style.setProperty("--hue", h);
   HTML.c5.style.setProperty("--hue", h);
+
+  HTML.c1.style.setProperty("--sat", s);
+  HTML.c2.style.setProperty("--sat", s);
+  HTML.c3.style.setProperty("--sat", s);
+  HTML.c4.style.setProperty("--sat", s);
+  HTML.c5.style.setProperty("--sat", s);
+
+  HTML.c1.style.setProperty("--lum", l);
+  HTML.c2.style.setProperty("--lum", l);
+  HTML.c3.style.setProperty("--lum", l);
+  HTML.c4.style.setProperty("--lum", l);
+  HTML.c5.style.setProperty("--lum", l);
 }
 
 //Shows HEX color values in p tag for all colorboxes

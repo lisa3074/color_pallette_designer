@@ -87,109 +87,109 @@ input {
 
 /*ANALOGOUS*/
 [data-color="c1ana"] {
-  background-color: hsl(calc(var(--hue) - 30), 50%, 50%);
+  background-color: hsl(calc(var(--hue) - 30), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c2ana"] {
-  background-color: hsl(calc(var(--hue) - 15), 50%, 50%);
+  background-color: hsl(calc(var(--hue) - 15), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c3ana"] {
-  background-color: hsl(var(--hue), 50%, 50%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c4ana"] {
-  background-color: hsl(calc(var(--hue) + 15), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 15), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c5ana"] {
-  background-color: hsl(calc(var(--hue) + 30), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 30), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 
 /*MONOCROMATIC*/
 [data-color="c1mono"] {
-  background-color: hsl(var(--hue), 10%, 50%);
+  background-color: hsl(var(--hue), 10%, calc(var(--lum) * 1%));
 }
 [data-color="c2mono"] {
-  background-color: hsl(var(--hue), 30%, 50%);
+  background-color: hsl(var(--hue), 30%, calc(var(--lum) * 1%));
 }
 [data-color="c3mono"] {
-  background-color: hsl(var(--hue), 50%, 50%);
+  background-color: hsl(var(--hue), 50%, calc(var(--lum) * 1%));
 }
 [data-color="c4mono"] {
-  background-color: hsl(var(--hue), 70%, 50%);
+  background-color: hsl(var(--hue), 70%, calc(var(--lum) * 1%));
 }
 
 [data-color="c5mono"] {
-  background-color: hsl(var(--hue), 90%, 50%);
+  background-color: hsl(var(--hue), 90%, calc(var(--lum) * 1%));
 }
 
 /*TRIAD*/
 [data-color="c1tri"] {
-  background-color: hsl(calc(var(--hue) + 240), 50%, 60%);
+  background-color: hsl(calc(var(--hue) + 240), calc(var(--sat) * 1%), 60%);
 }
 [data-color="c2tri"] {
-  background-color: hsl(calc(var(--hue) + 120), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 120), calc(var(--sat) * 1%), 50%);
 }
 [data-color="c3tri"] {
-  background-color: hsl(var(--hue), 50%, 50%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 50%);
 }
 [data-color="c4tri"] {
-  background-color: hsl(calc(var(--hue) + 60), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 60), calc(var(--sat) * 1%), 50%);
 }
 
 [data-color="c5tri"] {
-  background-color: hsl(calc(var(--hue) + 180), 50%, 40%);
+  background-color: hsl(calc(var(--hue) + 180), calc(var(--sat) * 1%), 40%);
 }
 
 /*COMPLEMENTARY*/
 [data-color="c1compl"] {
-  background-color: hsl(calc(var(--hue) + 180), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 180), calc(var(--sat) * 1%), 50%);
 }
 [data-color="c2compl"] {
-  background-color: hsl(calc(var(--hue) + 0), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 0), calc(var(--sat) * 1%), 50%);
 }
 [data-color="c3compl"] {
-  background-color: hsl(calc(var(--hue) + 180), 50%, 70%);
+  background-color: hsl(calc(var(--hue) + 180), calc(var(--sat) * 1%), 70%);
 }
 [data-color="c4compl"] {
-  background-color: hsl(calc(var(--hue) + 0), 50%, 70%);
+  background-color: hsl(calc(var(--hue) + 0), calc(var(--sat) * 1%), 70%);
 }
 
 [data-color="c5compl"] {
-  background-color: hsl(calc(var(--hue) + 180), 10%, 70%);
+  background-color: hsl(calc(var(--hue) + 180), calc(var(--sat) * 10%), 70%);
 }
 
 /*COMPOUND*/
 [data-color="c1compo"] {
-  background-color: hsl(calc(var(--hue) + 10), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 10), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c2compo"] {
-  background-color: hsl(calc(var(--hue) + 0), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 0), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c3compo"] {
-  background-color: hsl(calc(var(--hue) + 160), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 160), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 [data-color="c4compo"] {
-  background-color: hsl(calc(var(--hue) + 170), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 170), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 
 [data-color="c5compo"] {
-  background-color: hsl(calc(var(--hue) + 180), 50%, 50%);
+  background-color: hsl(calc(var(--hue) + 180), calc(var(--sat) * 1%), calc(var(--lum) * 1%));
 }
 
 /*SHADES*/
 [data-color="c1sha"] {
-  background-color: hsl(var(--hue), 50%, 20%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 20%);
 }
 [data-color="c2sha"] {
-  background-color: hsl(var(--hue), 50%, 33%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 33%);
 }
 [data-color="c3sha"] {
-  background-color: hsl(var(--hue), 50%, 50%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 50%);
 }
 [data-color="c4sha"] {
-  background-color: hsl(var(--hue), 50%, 65%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 65%);
 }
 
 [data-color="c5sha"] {
-  background-color: hsl(var(--hue), 50%, 80%);
+  background-color: hsl(var(--hue), calc(var(--sat) * 1%), 80%);
 }
 
 .cool_wrapper {
