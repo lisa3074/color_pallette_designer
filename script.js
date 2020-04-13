@@ -22,7 +22,7 @@ function globalVariables() {
 
 function init() {
   console.log("init");
-  document.querySelector(".click").addEventListener("click", function() {
+  document.querySelector(".click").addEventListener("click", function () {
     HTML.colorPicker.focus();
     document.querySelector(".clicky").classList.add("hide");
     HTML.colorPicker.click();
@@ -274,10 +274,7 @@ function calcHexFromRgb(rgb) {
   // Choose correct separator
   let sep = rgb.indexOf(",") > -1 ? "," : " ";
   // Turn "rgb(r,g,b)" into [r,g,b]
-  rgb = rgb
-    .substr(4)
-    .split(")")[0]
-    .split(sep);
+  rgb = rgb.substr(4).split(")")[0].split(sep);
 
   let r = (+rgb[0]).toString(16),
     g = (+rgb[1]).toString(16),
@@ -371,7 +368,7 @@ function removeHtmlText() {
 function createArray(text) {
   text.split("");
   const char = Array.from(text);
-  char.forEach(entry => {
+  char.forEach((entry) => {
     HTML.characters.push(entry);
   });
   return HTML.characters;
@@ -379,7 +376,7 @@ function createArray(text) {
 
 //TEXT DISPLAY
 function createSpan() {
-  HTML.characters.forEach(letter => {
+  HTML.characters.forEach((letter) => {
     const spans = document.createElement("span");
     spans.textContent = letter;
     HTML.coolText.appendChild(spans);
@@ -388,7 +385,7 @@ function createSpan() {
 function setAnimation() {
   const fade = document.querySelector("span");
   let counter = 0;
-  document.querySelectorAll("span").forEach(e => {
+  document.querySelectorAll("span").forEach((e) => {
     e.style.setProperty("--delay", counter + "0ms");
     e.classList.add("fade_in");
     counter++;
